@@ -1,32 +1,39 @@
 package com.example.demo.auth.model;
 
+
+import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class RegisterRequest {
 
-    private String firstName;
-    private String lastName;
+    @NotBlank
+    @NotNull
+    private String firstname;
+
+    @NotBlank
+    @NotNull
+    private String lastname;
+
+    @NotBlank
+    @NotNull
+    @Email
     private String email;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    @NotBlank
+    @NotNull
+    @Size(min = 8, max = 64)
+    private String password;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "RegisterRequest{" +
+                "firstName='" + firstname + '\'' +
+                ", lastName='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

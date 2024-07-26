@@ -16,13 +16,14 @@ public class UserService {
     }
 
     public User registerUser(RegisterRequest registerRequest) throws UserAlreadyExistException {
-        if (userRepository.findByEmailIgnoreCase(registerRequest.getEmail()).isPresent()) {
+        if (userRepository.findByEmailIgnoreCase(registerRequest.getEmail()).isPresent()
+        || userRepository.findByUsernameIgnoreCase(registerRequest.getLastname() + " " + registerRequest.getFirstname()).isPresent()) {
             throw new UserAlreadyExistException();
         }
         User user = new User();
-        user.setUsername(registerRequest.getLastName() + " " + registerRequest.getFirstName());
+        user.setUsername(registerRequest.getLastname() + " " + registerRequest.getFirstname());
         user.setEmail(registerRequest.getEmail());
-        user.setPassword("1234");
+        user.setPassword(registerRequest.getPassword());
         return userRepository.save(user);
     }
 
